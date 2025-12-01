@@ -2,36 +2,7 @@
 from reader import read_file_to_list
 
 dial = 0
-
-def turnDialO(input, dir, amount):
-    out = 0 
-    if dir == "L":
-        out = (input - amount)
-    elif dir == 'R':
-        out = (input + amount)
-    
-
-    clicks = 0
-
-
-    if out == 0:
-        clicks += 1
-    
-    while out < 0:
-        out += 100
-        clicks += 1
-    while out > 99:
-        out -= 100
-        clicks += 1
-
-    # if we end on zero, and we've counted a pass landing on zero, we haven't passed it (maybe)
-    if out == 0 and clicks >= 1: 
-        clicks -= 1
-    
-    return out, clicks
-
-
-def turnDialAlt(input, dir, amount):
+def turnDial(input, dir, amount):
     dial = input
     zero_passes = 0
 
@@ -47,7 +18,7 @@ def turnDialAlt(input, dir, amount):
                 dial = 0
         if dial == 0:
             zero_passes += 1
-    # if we end on zero, and we've counted a pass landing on zero, we haven't passed it
+    # if we end on zero, and we've counted a pass landing on zero, we haven't passed it... wait the problem says any click that causes it to end on zero... the truth is just that we're already counting these clicks outside of this function so yeah
     if dial == 0 and zero_passes >= 1: 
         zero_passes -= 1
 
@@ -61,7 +32,7 @@ print(turnDialO(50, 'R', 1000))
 print(turnDialO(50, 'L', 68))
 
 
-input = read_file_to_list("./day1-ex.txt")
+# input = read_file_to_list("./day1-ex.txt")
 input = read_file_to_list("./day1-input.txt")
 
 
@@ -74,14 +45,14 @@ for line in input:
 
     print(f'dial start: {dial}, doing: {line}', end="")
     
-    dial, zero_passes = turnDialAlt(dial, dir, amt)
+    dial, zero_passes = turnDialO(dial, dir, amt)
     zero_count += zero_passes
-    if dial == 0:
-        zero_count += 1
+    # if dial == 0:
+    #     zero_count += 1
 
-    print(f"  |  dial end: {dial},  new zero count: {zero_count}")
+    print(f"  |  dial end: {dial}, passes:{zero_passes}  new zero count: {zero_count}")
 
 print(zero_count)
 
 
-#6294 X wrong
+#5899
