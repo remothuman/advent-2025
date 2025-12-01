@@ -11,14 +11,22 @@ def turnDial(input, dir, amount):
         out = (input + amount)
     
     
-    if out < 0 or out > 99:
-        return out % 100, 1
-    return out, 0
-    # we expect dir to be <100 so only at max one click
+    clicks = 0
+    while out < 0:
+        out += 100
+        clicks += 1
+    while out > 99:
+        out -= 100
+        clicks += 1
+    return out, clicks
 
 
 print((99 + 10) % 100)
 print((5 - 10) % 100)
+
+
+print(turnDial(50, 'R', 1000))
+print(turnDial(50, 'L', 68))
 
 
 input = read_file_to_list("./day1-input.txt")
