@@ -24,7 +24,7 @@ def turnDialO(input, dir, amount):
         out -= 100
         clicks += 1
 
-    # if we end on zero, and we've counted a pass landing on zero, we haven't passed it
+    # if we end on zero, and we've counted a pass landing on zero, we haven't passed it (maybe)
     if out == 0 and clicks >= 1: 
         clicks -= 1
     
@@ -41,12 +41,12 @@ def turnDialAlt(input, dir, amount):
             dial -= 1
             if dial == -1:
                 dial = 99
-                zero_passes += 1
         elif dir == 'R':
             dial += 1
             if dial == 100:
                 dial = 0
-                zero_passes += 1
+        if dial == 0:
+            zero_passes += 1
     # if we end on zero, and we've counted a pass landing on zero, we haven't passed it
     if dial == 0 and zero_passes >= 1: 
         zero_passes -= 1
@@ -57,11 +57,11 @@ print((99 + 10) % 100)
 print((5 - 10) % 100)
 
 
-print(turnDial(50, 'R', 1000))
-print(turnDial(50, 'L', 68))
+print(turnDialO(50, 'R', 1000))
+print(turnDialO(50, 'L', 68))
 
 
-# input = read_file_to_list("./day1-ex.txt")
+input = read_file_to_list("./day1-ex.txt")
 input = read_file_to_list("./day1-input.txt")
 
 
@@ -74,7 +74,7 @@ for line in input:
 
     print(f'dial start: {dial}, doing: {line}', end="")
     
-    dial, zero_passes = turnDialO(dial, dir, amt)
+    dial, zero_passes = turnDialAlt(dial, dir, amt)
     zero_count += zero_passes
     if dial == 0:
         zero_count += 1
