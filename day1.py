@@ -4,10 +4,17 @@ from reader import read_file_to_list
 dial = 0
 
 def turnDial(input, dir, amount):
+    out = 0 
     if dir == "L":
-        return (input - amount) % 100
+        out = (input - amount)
     elif dir == 'R':
-        return (input + amount) % 100
+        out = (input + amount)
+    
+    
+    if out < 0 or out > 99:
+        return out % 100, 1
+    return out, 0
+    # we expect dir to be <100 so only at max one click
 
 
 print((99 + 10) % 100)
@@ -22,10 +29,12 @@ zero_count = 0
 for line in input:
     dir = line[0]
     amt = int(line[1:])
+    
+    dial, clicks = turnDial(dial, dir, amt)
+    zero_count += clicks
+
     if dial == 0:
         zero_count += 1
-    
-    dial = turnDial(dial, dir, amt)
 
 print(zero_count)
 
