@@ -15,6 +15,7 @@ def main(input):
             if is_invalid(i):
                 invalid_count += 1
                 invalid_sum += i
+                # print(i)
     return invalid_sum, invalid_count
         
 
@@ -26,20 +27,20 @@ def is_invalid(num):
         patternToCheck = digits[0:pattern_length]
         # print("--", patternToCheck, (patternToCheck * 2))
 
-        if digits == patternToCheck * 2:
-            return True
-
-        # if len(digits) % len(patternToCheck) != 0:
-        #     continue
-
-
-        # # check if word is made of pattern repeated
-        # for s in range(0, len(digits), len(patternToCheck)):
-        #     subsection_matches = digits[s:s+len(patternToCheck)] == patternToCheck 
-        #     if not subsection_matches:
-        #         break
-        # else: # executes if for loop didn't break
+        # if digits == patternToCheck * 2:
         #     return True
+
+        if len(digits) % len(patternToCheck) != 0:
+            continue
+
+
+        # check if word is made of pattern repeated
+        for s in range(0, len(digits), len(patternToCheck)):
+            subsection_matches = digits[s:s+len(patternToCheck)] == patternToCheck 
+            if not subsection_matches:
+                break
+        else: # executes if for loop didn't break
+            return True
     return False
 
 
