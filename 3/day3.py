@@ -26,29 +26,48 @@ def main(input):
         sum += find_max_joltage(line)
     return sum
 
-def find_max_joltage(line):
-    print(line, end="--")
-    # find first digit (largest digit)
+def find_max_joltage(line, onDigits=12):
+    print(line, end="\n")
+    digits = []
+
+    start = 0
+    left = -1 * (onDigits - 1)
+    for i in range(onDigits):
+        if left == 0:
+            lineToCheck = line[start:]
+        else:
+            lineToCheck = line[start:left]
+        max_digit, max_digit_index = find_max_digit(lineToCheck)
+
+        digits.append(str(max_digit))
+
+        max_digit_index += start
+
+        print(lineToCheck, digits, max_digit, max_digit_index, start, left)
+        start = max_digit_index + 1
+        left += 1
+
+    print(int("".join(digits)))
+    print("\n")
+    return int("".join(digits))
+
+def find_max_digit(line):
     max_digit = -1
     max_digit_index = -1
-    for i, digit_char in enumerate(line[0:-1]):
+    for i, digit_char in enumerate(line):
         digit = int(digit_char)
         if digit > max_digit:
             max_digit = digit
             max_digit_index = i
+    return max_digit, max_digit_index
 
-    # find second digit (largest digit after the first one)
-    second_max_digit = -1
-    second_max_digit_index = -1
-    for i, digit_char in enumerate(line[max_digit_index+1:]):
-        digit = int(digit_char)
-        if digit > second_max_digit:
-            second_max_digit = digit
-            second_max_digit_index = max_digit_index + 1 + i
 
-    out = f"{line[max_digit_index]}{line[second_max_digit_index]}"
-    print(out)
-    return int(out)
 
+# print(main(i))
+
+# print(find_max_joltage("9987654321111111", 12))
+
+print(find_max_joltage("818181911112111", 12))
+print(main(ex_input))
 
 print(main(i))
