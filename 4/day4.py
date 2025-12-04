@@ -20,8 +20,30 @@ def inputToList(input):
         rows.append(row)
     return rows
 
-def main(input):
+def mainPtTwo(input):
     rows = inputToList(input)
+
+    removed_count = 0
+    while True:
+        rows, valid_count = find_removable(rows)
+        if valid_count == 0:
+            break
+        # remove the removable
+        for row in rows:
+            for i, item in enumerate(row):
+                if item == "x":
+                    row[i] = "."
+        
+        removed_count += valid_count
+
+    for row in rows:
+        print("".join(row)) 
+    print(removed_count)
+    
+
+
+def find_removable(inputList):
+    rows = inputList
     
     # determine adjacency
     # brute force cause why not and im undereducated on competitive programming
@@ -45,10 +67,11 @@ def main(input):
                 valid_count += 1
 
     # print(rows)
-    for row in rows:
-        print("".join(row))
+    # for row in rows:
+    #     print("".join(row))
 
-    print(valid_count)
+    # print(valid_count)
+    return rows, valid_count
     
 
 def getAdjacentBlocks(row_i, col_i, rows):
@@ -77,5 +100,6 @@ def getAdjacentBlocks(row_i, col_i, rows):
 # print(list(getAdjacentBlocks(0, 0, inputToList(ex_input))))
 # print(list(getAdjacentBlocks(3, 3, inputToList(ex_input))))
 
-
-main(ex_input)
+from input import real_input
+# find_removable(real_input)
+mainPtTwo(real_input)
