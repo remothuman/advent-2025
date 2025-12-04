@@ -103,3 +103,6 @@ def getAdjacentBlocks(row_i, col_i, rows):
 from input import real_input
 # find_removable(real_input)
 mainPtTwo(real_input)
+
+
+# I think by bruteforcing everything i am missing out on chance to practice more complex things like dynamic programming, not making most of opportunity. but hey, whatever
