@@ -1,5 +1,6 @@
 cursor with their temprarily free proprietary model solved this in one prompt each.
-I asked it this first w/out writing code myself, (4hrs after code released to internet), but I tried not to look at it for when I write my code
+I asked it this first w/out writing code myself, (4hrs after code released to internet), but I tried not to look at it for when I write my code.
+It did look at my previous days solutions. maybe I will try again just in straight chatgpt or something with history turned off to really see, my assumption is that all modern models can do it but idek.
 
 
 
