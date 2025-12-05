@@ -106,3 +106,4 @@ mainPtTwo(real_input)
 
 
 # I think by bruteforcing everything i am missing out on chance to practice more complex things like dynamic programming, not making most of opportunity. but hey, whatever
+# or learning a new language 
