@@ -70,8 +70,11 @@ def main_2(input):
                 current_fresh_item = next(fresh_items_iter)
                 # current_available_item = next(iter(available_ids))
             elif current_fresh_item < current_available_item:
+                # then its not fresh
                 current_fresh_item = next(fresh_items_iter)
             else: # current_fresh_item > current_available_item
+                # then we have to move the available item forward
+                # should move it forward by more than one
                 current_available_item = next(available_ids_iter)
     except StopIteration:
         pass
@@ -79,5 +82,51 @@ def main_2(input):
     
     # still too slow. maybe need binary type search
 
-main_2(real_input)
+
+def main_3(input):
+    ranges_strs, available_ids_strs = input.split("\n\n")
+    ranges_strs = ranges_strs.split("\n")
+    available_ids_strs = available_ids_strs.split("\n")
+    
+    def get_ranges_iter():
+        sorted_ranges = sorted(ranges_strs, key=lambda x: int(x.split("-")[0]))
+        for range_str in sorted_ranges:
+            start, end = range_str.split("-")
+            start, end = int(start), int(end)
+            yield (start, end)
+    def get_available_ids_iter():
+        sorted_available_ids = sorted(available_ids_strs, key=lambda x: int(x))
+        for available_id in sorted_available_ids:
+            yield int(available_id)
+    
+    fresh_items_output = []
+    
+    ranges = get_ranges_iter()
+    available_ids = get_available_ids_iter()
+    
+    range_start, range_end = next(ranges)
+    available_id = next(available_ids)
+    
+    try:
+        while True:
+            is_in_range = available_id >= range_start and available_id <= range_end
+            if is_in_range:
+                fresh_items_output.append(available_id)
+                available_id = next(available_ids)
+                continue
+            elif available_id < range_start:
+                available_id = next(available_ids)
+                # this one not fresh
+                continue
+            elif available_id > range_end:
+                range_start, range_end = next(ranges)
+            else:
+                break
+    except StopIteration:
+        pass
+    print(len(fresh_items_output))
+
+
+
+main_3(real_input)
 
