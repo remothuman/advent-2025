@@ -149,19 +149,22 @@ def main_part_2(input):
     for range_start, range_end in ranges:
         _old_total_fresh = total_fresh
         if range_start > last_range_end:
+            _status = "new    "
             total_fresh += range_end - range_start + 1
         elif range_end < last_range_end:
             # its within the last range
-            pass
+            _status = "within "
+            continue # skip updating last_range
         else:
             total_fresh += range_end - last_range_end
+            _status = "overlap"
         last_range_start, last_range_end = range_start, range_end
         
-        print(range_start, range_end, f"+{total_fresh - _old_total_fresh}", f"({total_fresh})")
+        # print(_status, range_start, range_end, f"+{total_fresh - _old_total_fresh}", f"({pretty_display_large_number(total_fresh)})")
+        print(f"{_status} {range_start:_} {range_end:_} +{(total_fresh - _old_total_fresh):_} ({total_fresh:_})")
     print(total_fresh)
     
 
-
 main_part_2(real_input)
-main_part_2(ex_input)
+# main_part_2(ex_input)
 
