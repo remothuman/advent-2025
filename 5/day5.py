@@ -44,13 +44,15 @@ def main_2(input):
     available_ids = available_ids.split("\n")
     
     def get_fresh_items_iter():
-        for range_str in ranges:
+        sorted_ranges = sorted(ranges, key=lambda x: int(x.split("-")[0]))
+        for range_str in sorted_ranges:
             start, end = range_str.split("-")
             start, end = int(start), int(end)
             for i in range(start, end + 1):
                 yield i
     def get_available_ids_iter():
-        for available_id in available_ids:
+        sorted_available_ids = sorted(available_ids, key=lambda x: int(x))
+        for available_id in sorted_available_ids:
             yield int(available_id)
     
     fresh_items = []
@@ -60,6 +62,7 @@ def main_2(input):
     current_fresh_item = next(fresh_items_iter)
     current_available_item = next(available_ids_iter)
     try: 
+        print(f"starting with {current_fresh_item} and {current_available_item}")
         while True:
             if current_fresh_item == current_available_item:
                 fresh_items.append(current_fresh_item)
@@ -74,6 +77,7 @@ def main_2(input):
         pass
     print(len(fresh_items))
     
+    # still too slow. maybe need binary type search
 
 main_2(real_input)
 
