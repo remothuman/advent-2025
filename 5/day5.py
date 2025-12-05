@@ -145,16 +145,23 @@ def main_part_2(input):
     ranges = get_ranges_iter()
     total_fresh = 0
     
-    last_range_start, last_range_end = 0, 0
+    last_range_start, last_range_end = -1, -1
     for range_start, range_end in ranges:
+        _old_total_fresh = total_fresh
         if range_start > last_range_end:
             total_fresh += range_end - range_start + 1
+        elif range_end < last_range_end:
+            # its within the last range
+            pass
         else:
             total_fresh += range_end - last_range_end
         last_range_start, last_range_end = range_start, range_end
+        
+        print(range_start, range_end, f"+{total_fresh - _old_total_fresh}", f"({total_fresh})")
     print(total_fresh)
     
 
 
 main_part_2(real_input)
+main_part_2(ex_input)
 
