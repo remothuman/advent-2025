@@ -107,6 +107,7 @@ def main_3(input):
     range_start, range_end = next(ranges)
     available_id = next(available_ids)
     
+    
     try:
         while True:
             is_in_range = available_id >= range_start and available_id <= range_end
@@ -127,6 +128,33 @@ def main_3(input):
     print(len(fresh_items_output))
 
 
+def main_part_2(input):
+    # ?? I see we don't want to iterate over it, just count it
+    # I would add it for each range, but they can overlap...
+    
+    ranges_strs, _ = input.split("\n\n")
+    ranges_strs = ranges_strs.split("\n")
+    def get_ranges_iter():
+        sorted_ranges = sorted(ranges_strs, key=lambda x: int(x.split("-")[0]))
+        for range_str in sorted_ranges:
+            start, end = range_str.split("-")
+            start, end = int(start), int(end)
+            yield (start, end)
+    
+    
+    ranges = get_ranges_iter()
+    total_fresh = 0
+    
+    last_range_start, last_range_end = 0, 0
+    for range_start, range_end in ranges:
+        if range_start > last_range_end:
+            total_fresh += range_end - range_start + 1
+        else:
+            total_fresh += range_end - last_range_end
+        last_range_start, last_range_end = range_start, range_end
+    print(total_fresh)
+    
 
-main_3(real_input)
+
+main_part_2(real_input)
 
