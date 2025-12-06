@@ -129,6 +129,11 @@ def parse_input_part2(input:str):
         else:
             # continue on to next char_x aka number
             current_problem.append(number)
+    # for last one
+    current_problem.append(current_problem_operator)
+    problems.append(current_problem)
+            
+    # print(problems)
     
     # strip out whitespace and intify
     out = []
@@ -168,7 +173,7 @@ with open("./input_trunc.txt", "r") as f:
 # print(main(ex_input, part2=True))
 # print(main(real_input))
 
-# print(parse_input_part2(ex_input))
+print(parse_input_part2(ex_input))
 # for r in parse_input_part2(trunc_input):
 #     print(r)
     
